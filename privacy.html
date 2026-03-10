@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guild & Grain - Artisan Workshops & Creative Consulting</title>
+  <meta name="description" content="Discover Guild & Grain, your hub for artisan craft workshops, collaborative art projects, sustainable material sourcing, and creative business consulting in New York.">
+  <link rel="icon" href="favicon.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background-primary: #1a1a2e;
+      --background-secondary: #16213e;
+      --text-primary: #f0f5fe;
+      --text-secondary: #bbd3fa;
+      --accent-primary: #5290f3;
+      --accent-glow: hsl(217 85% 65% / 0.2);
+      --surface-card: #1f2a4a;
+      --section-spacing: clamp(3rem, 6vw, 5rem);
+      --border-radius: 24px;
+      --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--background-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      font-weight: 700;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--accent-primary);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .section-spacing {
+      padding-top: var(--section-spacing);
+      padding-bottom: var(--section-spacing);
+    }
+
+    .card {
+      background-color: var(--surface-card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .glow-effect {
+      position: relative;
+    }
+
+    .glow-effect::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%; /* Adjust size as needed */
+      height: 100%; /* Adjust size as needed */
+      background: var(--accent-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      filter: blur(20px); /* Adjust blur for glow intensity */
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .testimonial-quote {
+        position: relative;
+        padding: 2rem;
+        background-color: var(--background-secondary);
+        border-radius: var(--border-radius);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .testimonial-quote::before,
+    .testimonial-quote::after {
+        font-family: 'Outfit', sans-serif;
+        position: absolute;
+        font-size: 8rem;
+        color: var(--accent-primary);
+        opacity: 0.1;
+        line-height: 1;
+        top: 0.5rem;
+        z-index: 0;
+        transform: translateY(-25%);
+    }
+
+    .testimonial-quote::before {
+        content: open-quote;
+        left: 1rem;
+    }
+
+    .testimonial-quote::after {
+        content: close-quote;
+        right: 1rem;
+        top: auto;
+        bottom: 0.5rem;
+        transform: translateY(25%);
+    }
+
+    .testimonial-text {
+        position: relative;
+        z-index: 1;
+        font-size: 1.25rem;
+        font-style: italic;
+        color: var(--text-primary);
+    }
+
+    .testimonial-author {
+        position: relative;
+        z-index: 1;
+        margin-top: 1rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+    }
+
+    .image-zoom-hover {
+        overflow: hidden;
+    }
+
+    .image-zoom-hover img {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .image-zoom-hover:hover img {
+        transform: scale(1.05);
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header');
+      let lastScrollY = window.scrollY;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('bg-background-primary', 'shadow-md');
+          header.classList.remove('bg-transparent');
+        } else {
+          header.classList.remove('bg-background-primary', 'shadow-md');
+          header.classList.add('bg-transparent');
+        }
+
+        // Smooth fade-in for sections
+        document.querySelectorAll('section').forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const viewportHeight = window.innerHeight;
+          if (sectionTop < viewportHeight * 0.8) {
+            section.style.opacity = 1;
+            section.style.transform = 'translateY(0)';
+          }
+        });
+
+        lastScrollY = window.scrollY;
+      });
+
+      // Initial check for section fade-in
+      document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      });
+      // Trigger initial fade-in for visible sections
+      window.dispatchEvent(new Event('scroll'));
+    });
+  </script>
+</head>
+<body class="antialiased">
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
+    <nav class="container flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-text-primary">Guild & Grain</a>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#workshops" class="text-text-secondary hover:text-accent-primary transition-colors">Workshops</a>
+        <a href="#projects" class="text-text-secondary hover:text-accent-primary transition-colors">Projects</a>
+        <a href="#consulting" class="text-text-secondary hover:text-accent-primary transition-colors">Consulting</a>
+        <a href="#contact" class="text-text-secondary hover:text-accent-primary transition-colors">Contact</a>
+        <a href="#contact" class="btn-outline">Book Session</a>
+      </div>
+      <button class="md:hidden text-text-primary focus:outline-none">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </nav>
+  </header>
+<main>
+<style>
+  #privacy-policy-section {
+    padding-top: 7rem;
+  }
+</style>
+<section id="privacy-policy-section">
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem;">Privacy Policy for Guild & Grain</h2>
+
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        Guild & Grain ("we," "our," or "us") is committed to protecting the privacy of individuals who visit our online platform, engage with our services, or participate in our workshops. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information and explains your rights in relation to that information. Our dedication is to foster creativity and artistic expression while ensuring your personal data is handled responsibly and in accordance with applicable data protection laws, including the General Data Protection Regulation (GDPR) and other relevant privacy legislation.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Information We Collect</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.5;">
+        We collect various types of information to provide and improve our services, including:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Personal Identifiable Information (PII):</strong> This includes information you voluntarily provide to us when you register for a workshop, purchase materials, fill out a contact form, subscribe to our newsletter, or engage in our creative business consulting. Examples include your name, email address, postal address (e.g., 451 Clarkson Avenue, New York, New York, 11203, USA), phone number (+12567507102), and payment information (processed securely by third-party payment processors).
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Workshop and Project Information:</strong> Details related to workshops you enroll in, collaborative art projects you participate in, and any specific requirements or interests you communicate to us regarding these services.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Correspondence and Communications:</strong> Records of communications when you contact us via email (info@guildandgrain.com) or other channels, including inquiries, feedback, and customer support.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Automatically Collected Information:</strong> When you visit our site, we may automatically collect certain information about your device and browsing activity. This may include your IP address, browser type, operating system, referring URLs, pages viewed, and the dates/times of your visits. This information helps us understand how our online platform is used and improve your experience.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">How We Use Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.5;">
+        We use the information we collect for various purposes, including:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Providing and Managing Services:</strong> To process your workshop registrations, deliver artisan craft workshops, facilitate collaborative art projects, fulfill material sourcing requests, and provide creative business consulting.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Communication:</strong> To respond to your inquiries, provide customer support, send important updates about your bookings or our services, and deliver newsletters or marketing communications you have opted into.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Improving Our Platform and Services:</strong> To analyze how our site is used, understand user preferences, troubleshoot technical issues, and enhance the content and functionality of our online platform.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Marketing and Promotion:</strong> To inform you about new workshops, special events, or services that may be of interest to you, based on your preferences and consent. You can opt out of these communications at any time.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Compliance and Legal Obligations:</strong> To comply with legal requirements, prevent fraud, resolve disputes, and enforce our agreements.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Sharing Your Information</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.5;">
+        We do not sell your personal data. We may share your information with trusted third parties in the following circumstances:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Service Providers:</strong> We engage third-party service providers to perform functions on our behalf, such as payment processing, website hosting, email delivery, and analytics. These providers have access to personal information only to perform their services and are obligated not to disclose or use it for other purposes.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency).
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of all or a portion of our assets, your information may be transferred as part of that transaction.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>With Your Consent:</strong> We may share your information with third parties when we have your explicit consent to do so.
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Data Security</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        We implement appropriate technical and organizational measures to protect your personal data from unauthorized access, loss, misuse, alteration, or destruction. We regularly review our security practices to ensure the ongoing integrity and confidentiality of your information. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Your Data Protection Rights (GDPR)</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.5;">
+        Under the GDPR, you have the following rights regarding your personal data:
+    </p>
+    <ul style="list-style: disc; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Access:</strong> You have the right to request copies of your personal data.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Rectification:</strong> You have the right to request that we correct any information you believe is inaccurate or complete information you believe is incomplete.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Erasure:</strong> You have the right to request that we erase your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Restrict Processing:</strong> You have the right to request that we restrict the processing of your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Object to Processing:</strong> You have the right to object to our processing of your personal data, under certain conditions.
+        </li>
+        <li style="font-size: 1rem; margin-bottom: 0.75rem;">
+            <strong>The Right to Data Portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions.
+        </li>
+    </ul>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        To exercise any of these rights, please contact us using the contact details provided below. We will respond to your request within one month.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Cookies and Tracking Technologies</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        Our site uses cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and understand user behavior. Cookies are small data files placed on your device. You can manage your cookie preferences through your browser settings.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Third-Party Links</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        Our online platform may contain links to third-party websites or services that are not operated by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party sites or services. We encourage you to review the privacy policies of any third-party sites you visit.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Children's Privacy</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        Our services are not intended for individuals under the age of 16. We do not knowingly collect personal identifiable information from children under 16. If we become aware that we have collected personal data from a child under 16 without verifiable parental consent, we will take steps to remove that information from our servers.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Changes to This Privacy Policy</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.5;">
+        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any significant changes by posting the new Privacy Policy on this page and updating the "Effective Date" at the top of this policy. We encourage you to review this Privacy Policy periodically.
+    </p>
+
+    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Contact Us</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.5;">
+        If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:
+    </p>
+    <p style="font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5;">
+        <strong>Guild & Grain</strong><br>
+        451 Clarkson Avenue,<br>
+        New York, New York, 11203,<br>
+        USA<br>
+    </p>
+</section>
+</main>
+<footer class="bg-[#212529] text-[#ffffff] py-10 md:py-16">
+    <div class="container text-center text-sm">
+      <div class="mb-4">
+        <a href="./privacy.html" class="text-gray-400 hover:text-accent-primary transition-colors mx-2">Privacy Policy</a>
+        <span class="text-gray-500">|</span>
+        <a href="./tos.html" class="text-gray-400 hover:text-accent-primary transition-colors mx-2">Terms of Service</a>
+      </div>
+      <p class="mt-4">&copy; 2024 Guild & Grain. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="cookie-consent-banner" class="fixed bottom-0 left-0 w-full bg-[#16213e] text-white p-4 flex flex-col md:flex-row items-center justify-between text-sm z-[100] transform translate-y-full transition-transform duration-500 ease-in-out">
+    <p class="mb-2 md:mb-0 mr-4 text-center md:text-left">We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. By clicking 'Accept', you agree to our cookie use as described in our <a href="./privacy.html" class="text-accent-primary hover:underline">Privacy Policy</a>.</p>
+    <button id="accept-cookies" class="btn-outline flex-shrink-0 !py-2 !px-4">Accept</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const banner = document.getElementById('cookie-consent-banner');
+      const acceptButton = document.getElementById('accept-cookies');
+      const cookieName = 'consent_Guild & Grain_cookies'; // Unique cookie name prefix
+
+      function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+          const date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      if (!getCookie(cookieName)) {
+        banner.classList.remove('translate-y-full');
+      }
+
+      acceptButton.addEventListener('click', function() {
+        setCookie(cookieName, 'accepted', 365);
+        banner.classList.add('translate-y-full');
+      });
+    });
+  </script>
+</body>
+</html>

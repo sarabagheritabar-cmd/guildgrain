@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guild & Grain - Artisan Workshops & Creative Consulting</title>
+  <meta name="description" content="Discover Guild & Grain, your hub for artisan craft workshops, collaborative art projects, sustainable material sourcing, and creative business consulting in New York.">
+  <link rel="icon" href="favicon.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background-primary: #1a1a2e;
+      --background-secondary: #16213e;
+      --text-primary: #f0f5fe;
+      --text-secondary: #bbd3fa;
+      --accent-primary: #5290f3;
+      --accent-glow: hsl(217 85% 65% / 0.2);
+      --surface-card: #1f2a4a;
+      --section-spacing: clamp(3rem, 6vw, 5rem);
+      --border-radius: 24px;
+      --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--background-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      font-weight: 700;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--accent-primary);
+      color: var(--text-primary);
+      transform: translateY(-2px);
+    }
+
+    .section-spacing {
+      padding-top: var(--section-spacing);
+      padding-bottom: var(--section-spacing);
+    }
+
+    .card {
+      background-color: var(--surface-card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .glow-effect {
+      position: relative;
+    }
+
+    .glow-effect::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%; /* Adjust size as needed */
+      height: 100%; /* Adjust size as needed */
+      background: var(--accent-glow);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      filter: blur(20px); /* Adjust blur for glow intensity */
+      opacity: 0.6;
+      z-index: -1;
+    }
+
+    .testimonial-quote {
+        position: relative;
+        padding: 2rem;
+        background-color: var(--background-secondary);
+        border-radius: var(--border-radius);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .testimonial-quote::before,
+    .testimonial-quote::after {
+        font-family: 'Outfit', sans-serif;
+        position: absolute;
+        font-size: 8rem;
+        color: var(--accent-primary);
+        opacity: 0.1;
+        line-height: 1;
+        top: 0.5rem;
+        z-index: 0;
+        transform: translateY(-25%);
+    }
+
+    .testimonial-quote::before {
+        content: open-quote;
+        left: 1rem;
+    }
+
+    .testimonial-quote::after {
+        content: close-quote;
+        right: 1rem;
+        top: auto;
+        bottom: 0.5rem;
+        transform: translateY(25%);
+    }
+
+    .testimonial-text {
+        position: relative;
+        z-index: 1;
+        font-size: 1.25rem;
+        font-style: italic;
+        color: var(--text-primary);
+    }
+
+    .testimonial-author {
+        position: relative;
+        z-index: 1;
+        margin-top: 1rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+    }
+
+    .image-zoom-hover {
+        overflow: hidden;
+    }
+
+    .image-zoom-hover img {
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .image-zoom-hover:hover img {
+        transform: scale(1.05);
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header');
+      let lastScrollY = window.scrollY;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('bg-background-primary', 'shadow-md');
+          header.classList.remove('bg-transparent');
+        } else {
+          header.classList.remove('bg-background-primary', 'shadow-md');
+          header.classList.add('bg-transparent');
+        }
+
+        // Smooth fade-in for sections
+        document.querySelectorAll('section').forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const viewportHeight = window.innerHeight;
+          if (sectionTop < viewportHeight * 0.8) {
+            section.style.opacity = 1;
+            section.style.transform = 'translateY(0)';
+          }
+        });
+
+        lastScrollY = window.scrollY;
+      });
+
+      // Initial check for section fade-in
+      document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      });
+      // Trigger initial fade-in for visible sections
+      window.dispatchEvent(new Event('scroll'));
+    });
+  </script>
+</head>
+<body class="antialiased">
+  <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
+    <nav class="container flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-text-primary">Guild & Grain</a>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#workshops" class="text-text-secondary hover:text-accent-primary transition-colors">Workshops</a>
+        <a href="#projects" class="text-text-secondary hover:text-accent-primary transition-colors">Projects</a>
+        <a href="#consulting" class="text-text-secondary hover:text-accent-primary transition-colors">Consulting</a>
+        <a href="#contact" class="text-text-secondary hover:text-accent-primary transition-colors">Contact</a>
+        <a href="#contact" class="btn-outline">Book Session</a>
+      </div>
+      <button class="md:hidden text-text-primary focus:outline-none">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </nav>
+  </header>
+<main>
+<style>
+  #guild-and-grain-terms {
+    padding-top: 7rem;
+  }
+</style>
+<section id="guild-and-grain-terms">
+    <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; color: #2c3e50;">Terms and Conditions for Guild & Grain</h2>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">Welcome to Guild & Grain. These Terms and Conditions govern your use of our website and services, including artisan craft workshops, collaborative art projects, material sourcing, and creative business consulting. By accessing or using our online platform, you agree to comply with and be bound by these terms. If you do not agree with any part of these terms, you must not use our services.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">1. Acceptance of Terms</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">By using our site, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions. These terms apply to all visitors, users, and others who access or use our service.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">2. Services Provided</h3>
+    <p style="font-size: 1rem; margin-bottom: 1rem; line-height: 1.6; color: #34495e;">Guild & Grain offers the following services:</p>
+    <ul style="font-size: 1rem; margin-left: 1.5rem; margin-bottom: 1.5rem; list-style: disc; color: #34495e;">
+        <li style="margin-bottom: 0.5rem;">Artisan Craft Workshops</li>
+        <li style="margin-bottom: 0.5rem;">Collaborative Art Projects</li>
+        <li style="margin-bottom: 0.5rem;">Material Sourcing</li>
+        <li style="margin-bottom: 0.5rem;">Creative Business Consulting</li>
+    </ul>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">Details regarding specific workshops, projects, and consultation services, including pricing, schedules, and deliverables, will be provided separately and are subject to individual agreements or registrations.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">3. User Responsibilities</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">As a user of our service, you agree to:</p>
+    <ul style="font-size: 1rem; margin-left: 1.5rem; margin-bottom: 1.5rem; list-style: disc; color: #34495e;">
+        <li style="margin-bottom: 0.5rem;">Provide accurate and complete information when registering for workshops or services.</li>
+        <li style="margin-bottom: 0.5rem;">Comply with all applicable local, national, and international laws and regulations.</li>
+        <li style="margin-bottom: 0.5rem;">Respect the intellectual property rights of Guild & Grain and other users.</li>
+        <li style="margin-bottom: 0.5rem;">Refrain from any activity that could harm, disable, overburden, or impair our online platform.</li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">4. Intellectual Property</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">All content on our website, including text, graphics, logos, images, as well as the compilation thereof, and any software used on the site, is the property of Guild & Grain or its suppliers and protected by copyright and other intellectual property laws. Your participation in workshops or projects does not grant you ownership of any content or intellectual property of Guild & Grain, unless explicitly stated otherwise in a separate agreement.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">5. Workshop and Service Bookings</h3>
+    <ul style="font-size: 1rem; margin-left: 1.5rem; margin-bottom: 1.5rem; list-style: disc; color: #34495e;">
+        <li style="margin-bottom: 0.5rem;"><strong>Payment:</strong> Full payment is typically required at the time of booking to secure your spot in a workshop or service.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>Cancellations and Refunds:</strong> Specific cancellation and refund policies for workshops and services will be outlined at the time of booking. Generally, refunds may be subject to administrative fees or may not be available within a certain period before the scheduled event.</li>
+        <li style="margin-bottom: 0.5rem;"><strong>Changes:</strong> Guild & Grain reserves the right to cancel or reschedule workshops or services due to unforeseen circumstances or insufficient enrollment. In such cases, participants will be offered alternative dates or a full refund.</li>
+    </ul>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">6. Limitation of Liability</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">To the fullest extent permitted by applicable law, Guild & Grain shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use our service; (ii) any conduct or content of any third party on our service; (iii) any content obtained from our service; and (iv) unauthorized access, use or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence) or any other legal theory, whether or not we have been informed of the possibility of such damage, and even if a remedy set forth herein is found to have failed of its essential purpose.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">7. Indemnification</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">You agree to defend, indemnify, and hold harmless Guild & Grain and its licensee and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the service, by you or any person using your account and password; b) a breach of these Terms, or c) content posted on the Service.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">8. Governing Law</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">These Terms shall be governed and construed in accordance with the laws of New York, USA, without regard to its conflict of law provisions.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">9. Changes to Terms</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our service after those revisions become effective, you agree to be bound by the revised terms.</p>
+
+    <h3 style="font-size: 1.75rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: #2c3e50;">10. Contact Us</h3>
+    <p style="font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; color: #34495e;">If you have any questions about these Terms, please contact us at:</p>
+    <address style="font-size: 1rem; margin-bottom: 1.5rem; font-style: normal; line-height: 1.6; color: #34495e;">
+        Guild & Grain<br>
+        451 Clarkson Avenue<br>
+        New York, New York, 11203<br>
+        USA
+    </address>
+</section>
+</main>
+<footer class="bg-[#212529] text-[#ffffff] py-10 md:py-16">
+    <div class="container text-center text-sm">
+      <div class="mb-4">
+        <a href="./privacy.html" class="text-gray-400 hover:text-accent-primary transition-colors mx-2">Privacy Policy</a>
+        <span class="text-gray-500">|</span>
+        <a href="./tos.html" class="text-gray-400 hover:text-accent-primary transition-colors mx-2">Terms of Service</a>
+      </div>
+      <p class="mt-4">&copy; 2024 Guild & Grain. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="cookie-consent-banner" class="fixed bottom-0 left-0 w-full bg-[#16213e] text-white p-4 flex flex-col md:flex-row items-center justify-between text-sm z-[100] transform translate-y-full transition-transform duration-500 ease-in-out">
+    <p class="mb-2 md:mb-0 mr-4 text-center md:text-left">We use essential cookies to make our site work. With your consent, we may also use non-essential cookies to improve user experience and analyze website traffic. By clicking 'Accept', you agree to our cookie use as described in our <a href="./privacy.html" class="text-accent-primary hover:underline">Privacy Policy</a>.</p>
+    <button id="accept-cookies" class="btn-outline flex-shrink-0 !py-2 !px-4">Accept</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const banner = document.getElementById('cookie-consent-banner');
+      const acceptButton = document.getElementById('accept-cookies');
+      const cookieName = 'consent_Guild & Grain_cookies'; // Unique cookie name prefix
+
+      function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+          const date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+          if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      if (!getCookie(cookieName)) {
+        banner.classList.remove('translate-y-full');
+      }
+
+      acceptButton.addEventListener('click', function() {
+        setCookie(cookieName, 'accepted', 365);
+        banner.classList.add('translate-y-full');
+      });
+    });
+  </script>
+</body>
+</html>
